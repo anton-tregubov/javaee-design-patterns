@@ -9,23 +9,272 @@
     <packaging>pom</packaging>
 
     <properties>
+        <jdk-version>1.8</jdk-version>
+        <!--plugins-->
+        <maven-shade-plugin-version>3.0.0</maven-shade-plugin-version>
+        <maven-assembly-plugin-version>3.0.0</maven-assembly-plugin-version>
+        <maven-clean-plugin-version>3.0.0</maven-clean-plugin-version>
+        <maven-compiler-plugin-version>3.6.1</maven-compiler-plugin-version>
+        <maven-dependency-plugin-version>3.0.0</maven-dependency-plugin-version>
+        <maven-deploy-plugin-version>2.8.2</maven-deploy-plugin-version>
+        <maven-ear-plugin-version>2.10.1</maven-ear-plugin-version>
+        <maven-ejb-plugin-version>2.5.1</maven-ejb-plugin-version>
+        <maven-enforcer-plugin-version>1.4.1</maven-enforcer-plugin-version>
+        <maven-install-plugin-version>2.5.2</maven-install-plugin-version>
+        <maven-jar-plugin-version>3.0.2</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>2.10.4</maven-javadoc-plugin-version>
+        <maven-resources-plugin-version>3.0.2</maven-resources-plugin-version>
+        <maven-site-plugin-version>3.6</maven-site-plugin-version>
+        <maven-source-plugin-version>3.0.1</maven-source-plugin-version>
+        <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
+        <maven-failsafe-plugin-version>2.19.1</maven-failsafe-plugin-version>
+        <maven-war-plugin-version>3.0.0</maven-war-plugin-version>
+        <!--plugins-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee-version>7.0</javaee-version>
         <arquillian-version>1.1.13.Final</arquillian-version>
         <shrinkwrap-resolver-version>2.2.6</shrinkwrap-resolver-version>
         <shrinkwrap-descriptors-version>2.0.0</shrinkwrap-descriptors-version>
         <shrinkwrap-version>1.2.6</shrinkwrap-version>
+        <guava-version>23.3-jre</guava-version>
         <junit-version>4.12</junit-version>
         <hamcrest-version>1.3</hamcrest-version>
     </properties>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven-assembly-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Java-Version>${java.version}</Java-Version>
+                                <Java-Vendor>${java.vendor}</Java-Vendor>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
+                    <configuration>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                        <source>${jdk-version}</source>
+                        <target>${jdk-version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${maven-ear-plugin-version}</version>
+                    <configuration>
+                        <duplicateArtifactsBreakTheBuild>true</duplicateArtifactsBreakTheBuild>
+                        <useBaseVersion>true</useBaseVersion>
+                        <version>7</version>
+                        <skinnyWars>true</skinnyWars>
+                        <defaultLibBundleDir>lib/</defaultLibBundleDir>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>${maven-ejb-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Java-Version>${java.version}</Java-Version>
+                                <Java-Vendor>${java.vendor}</Java-Vendor>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin-version}</version>
+                    <configuration>
+                        <header>
+                            <![CDATA[ <b>${project.name} ${project.version}</b> ]]>
+                        </header>
+                        <footer>
+                            <![CDATA[ <b>${project.name} ${project.version}</b> ]]>
+                        </footer>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Java-Version>${java.version}</Java-Version>
+                                <Java-Vendor>${java.vendor}</Java-Vendor>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestSections>
+                                <manifestSection>
+                                    <name>Build-Information</name>
+                                    <manifestEntries>
+                                        <Java-Version>${java.version}</Java-Version>
+                                        <Java-Vendor>${java.vendor}</Java-Vendor>
+                                    </manifestEntries>
+                                </manifestSection>
+                            </manifestSections>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>integration-test</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>verify</id>
+                            <goals>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin-version}</version>
+                    <configuration>
+                        <archiveClasses>true</archiveClasses>
+                        <attachClasses>true</attachClasses>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-java-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <message>
+                                        To build this project JDK ${jdk-version} (or greater) is required. Please install it.
+                                    </message>
+                                    <version>${jdk-version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-maven-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <message>
+                                        To build this project Maven 3.3.9 (or greater) is required. Please install it.
+                                    </message>
+                                    <version>3.3.9</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>${javaee-version}</version>
-            </dependency>
+            <!--BOM start-->
             <dependency>
                 <groupId>org.jboss.shrinkwrap.descriptors</groupId>
                 <artifactId>shrinkwrap-descriptors-bom</artifactId>
@@ -54,6 +303,21 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--BOM end-->
+            <!--Library start-->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee-version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
+            <!--Library end-->
+            <!--Test start-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -72,6 +336,7 @@
                 <version>${hamcrest-version}</version>
                 <scope>test</scope>
             </dependency>
+            <!--Test end-->
         </dependencies>
     </dependencyManagement>
 
