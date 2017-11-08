@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.faulab.javaee-design-pattern</groupId>
-    <artifactId>javaee-design-pattern</artifactId>
+    <groupId>ru.faulab.javaee-design-patterns</groupId>
+    <artifactId>javaee-design-patterns</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -13,5 +13,6 @@
     </properties>
 
     <modules>
+        <module>parent</module>
     </modules>
 </project>
