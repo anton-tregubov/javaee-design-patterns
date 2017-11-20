@@ -14,6 +14,8 @@
     <artifactId>application</artifactId>
     <packaging>ear</packaging>
 
+    <name>project-organization.application</name>
+
     <build>
         <plugins>
             <plugin>

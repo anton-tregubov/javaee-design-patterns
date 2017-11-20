@@ -14,6 +14,8 @@
     <artifactId>application-web</artifactId>
     <packaging>war</packaging>
 
+    <name>project-organization.web</name>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}.note-module</groupId>

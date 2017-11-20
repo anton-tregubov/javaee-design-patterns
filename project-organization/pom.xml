@@ -14,6 +14,8 @@
     <artifactId>project-organization</artifactId>
     <packaging>pom</packaging>
 
+    <name>project-organization</name>
+
     <modules>
         <module>note-module</module>
         <module>web</module>

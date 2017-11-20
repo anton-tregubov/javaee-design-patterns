@@ -13,4 +13,7 @@
     <groupId>ru.faulab.javaee-design-patterns.project-organization.note-module</groupId>
     <artifactId>note-api</artifactId>
     <packaging>jar</packaging>
+
+    <name>project-organization.note-module.api</name>
+
 </project>

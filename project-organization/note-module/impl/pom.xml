@@ -14,6 +14,8 @@
     <artifactId>note-impl</artifactId>
     <packaging>jar</packaging>
 
+    <name>project-organization.note-module.impl</name>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
