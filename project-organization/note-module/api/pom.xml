@@ -7,18 +7,10 @@
         <groupId>ru.faulab.javaee-design-patterns</groupId>
         <artifactId>javaee-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../../parent/pom.xml</relativePath>
+        <relativePath>../../../parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>ru.faulab.javaee-design-patterns.project-organization</groupId>
-    <artifactId>application-web</artifactId>
-    <packaging>war</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}.note-module</groupId>
-            <artifactId>note-web</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <groupId>ru.faulab.javaee-design-patterns.project-organization.note-module</groupId>
+    <artifactId>note-api</artifactId>
+    <packaging>jar</packaging>
 </project>

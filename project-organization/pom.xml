@@ -15,8 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>api</module>
-        <module>impl</module>
+        <module>note-module</module>
         <module>web</module>
         <module>application</module>
     </modules>
