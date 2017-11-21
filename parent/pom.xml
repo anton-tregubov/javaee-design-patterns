@@ -44,6 +44,7 @@
         <shrinkwrap-version>1.2.6</shrinkwrap-version>
         <junit-version>4.12</junit-version>
         <hamcrest-version>1.3</hamcrest-version>
+        <wildfly-arquillian-container-version>2.1.0.Final</wildfly-arquillian-container-version>
     </properties>
 
     <build>
@@ -373,6 +374,21 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-library</artifactId>
                 <version>${hamcrest-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.arquillian</groupId>
+                <artifactId>wildfly-arquillian-container-managed</artifactId>
+                <version>${wildfly-arquillian-container-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.arquillian</groupId>
+                <artifactId>wildfly-arquillian-container-embedded</artifactId>
+                <version>${wildfly-arquillian-container-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.junit</groupId>
+                <artifactId>arquillian-junit-container</artifactId>
+                <version>${arquillian-version}</version>
             </dependency>
             <!--Test end-->
         </dependencies>
