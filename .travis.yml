@@ -3,14 +3,14 @@ jdk:
   - oraclejdk8
 
 env:
-  - CONTAINER=-DnoIt=DnoIt
-  - CONTAINER=-Dit=wildfly-11.0.0-managed
-  - CONTAINER=-Dit=wildfly-11.0.0-embedded
-  - CONTAINER=-Dit=wildfly-10.1.0-managed
-  - CONTAINER=-Dit=wildfly-10.1.0-embedded
-  - CONTAINER=-Dit=wildfly-10.1.0-embedded
-  - CONTAINER=-Dit=glassfish-5.0-embedded
-  - CONTAINER=-Dit=glassfish-4.1.2-embedded
+  - CONTAINER="-DnoIt=DnoIt"
+  - CONTAINER="-Dit=wildfly-11.0.0-managed"
+  - CONTAINER="-Dit=wildfly-11.0.0-embedded"
+  - CONTAINER="-Dit=wildfly-10.1.0-managed"
+  - CONTAINER="-Dit=wildfly-10.1.0-embedded"
+  - CONTAINER="-Dit=wildfly-10.1.0-embedded"
+  - CONTAINER="-Dit=glassfish-5.0-embedded"
+  - CONTAINER="-Dit=glassfish-4.1.2-embedded"
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
