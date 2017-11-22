@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 
 env:
-  - CONTAINER=
+  - CONTAINER=-DnoIt=DnoIt
   - CONTAINER=-Dit=wildfly-11.0.0-managed
   - CONTAINER=-Dit=wildfly-11.0.0-embedded
   - CONTAINER=-Dit=wildfly-10.1.0-managed
