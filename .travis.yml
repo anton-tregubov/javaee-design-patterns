@@ -5,6 +5,9 @@ jdk:
 env:
   - CONTAINER=it-skip
   - CONTAINER=it-wildfly-11.0.0-managed
+  - CONTAINER=it-wildfly-11.0.0-embedded
+  - CONTAINER=it-wildfly-10.1.0-managed
+  - CONTAINER=it-wildfly-10.1.0-embedded
 
 #install: install any dependencies required
 #script: run the build script
