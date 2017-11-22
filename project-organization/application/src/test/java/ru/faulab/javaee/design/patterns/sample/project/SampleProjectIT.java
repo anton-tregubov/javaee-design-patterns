@@ -2,6 +2,7 @@ package ru.faulab.javaee.design.patterns.sample.project;
 
 import com.google.common.base.Preconditions;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.Testable;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -21,7 +22,7 @@ public class SampleProjectIT {
         Preconditions.checkNotNull(testingArtifact, "\"testingArtifact\" java property missing");
         EnterpriseArchive enterpriseArchive = ShrinkWrap.createFromZipFile(EnterpriseArchive.class, new File(testingArtifact));
         enterpriseArchive.getAsType(WebArchive.class, path -> path.get().endsWith(".war"))
-                .stream().findFirst().ifPresent(webArchive -> webArchive.addClass(SampleProjectIT.class));
+                .stream().findFirst().ifPresent(webArchive -> Testable.archiveToTest(webArchive.addClass(SampleProjectIT.class)));
         return enterpriseArchive;
     }
 

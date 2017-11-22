@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.faulab.javaee-design-patterns</groupId>
@@ -44,7 +44,8 @@
         <shrinkwrap-version>1.2.6</shrinkwrap-version>
         <junit-version>4.12</junit-version>
         <hamcrest-version>1.3</hamcrest-version>
-        <wildfly-arquillian-container-version>2.1.0.Final</wildfly-arquillian-container-version>
+        <arquillian-wildfly-container-version>2.1.0.Final</arquillian-wildfly-container-version>
+        <arquillian-glassfish-container-version>1.0.1</arquillian-glassfish-container-version>
         <!--todo should be evaluated by build-helper-maven-plugin-->
         <has-not-it>true</has-not-it>
     </properties>
@@ -251,7 +252,8 @@
                             <rules>
                                 <requireJavaVersion>
                                     <message>
-                                        To build this project JDK ${jdk-version} (or greater) is required. Please install it.
+                                        To build this project JDK ${jdk-version} (or greater) is required. Please
+                                        install it.
                                     </message>
                                     <version>${jdk-version}</version>
                                 </requireJavaVersion>
@@ -397,12 +399,22 @@
             <dependency>
                 <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${wildfly-arquillian-container-version}</version>
+                <version>${arquillian-wildfly-container-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-container-embedded</artifactId>
-                <version>${wildfly-arquillian-container-version}</version>
+                <version>${arquillian-wildfly-container-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                <version>${arquillian-glassfish-container-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-managed-3.1</artifactId>
+                <version>${arquillian-glassfish-container-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.junit</groupId>
@@ -713,7 +725,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <skipTests>${has-not-it}</skipTests>
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${wildfly-version}</JBOSS_HOME>
                             </environmentVariables>
@@ -790,7 +801,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <skipTests>${has-not-it}</skipTests>
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${wildfly-version}</JBOSS_HOME>
                             </environmentVariables>
@@ -801,6 +811,68 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>it-glassfish-4.1.2-embedded</id>
+            <activation>
+                <property>
+                    <name>it</name>
+                    <value>glassfish-4.1.2-embedded</value>
+                </property>
+            </activation>
+            <properties>
+                <glassfish-version>4.1.2</glassfish-version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.junit</groupId>
+                    <artifactId>arquillian-junit-container</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>${glassfish-version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>it-glassfish-5.0-embedded</id>
+            <activation>
+                <property>
+                    <name>it</name>
+                    <value>glassfish-5.0-embedded</value>
+                </property>
+            </activation>
+            <properties>
+                <glassfish-version>5.0</glassfish-version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.junit</groupId>
+                    <artifactId>arquillian-junit-container</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>${glassfish-version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 </project>
