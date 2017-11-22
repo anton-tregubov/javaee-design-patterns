@@ -13,6 +13,8 @@ env:
   - CONTAINER=glassfish-5.0-embedded
   - CONTAINER=glassfish-4.1.2-managed
   - CONTAINER=glassfish-4.1.2-embedded
+  - CONTAINER=tomee-7.0.4-managed
+  - CONTAINER=tomee-7.0.4-embedded
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
