@@ -3,18 +3,23 @@ jdk:
   - oraclejdk8
 
 env:
-  - CONTAINER=it-skip
-  - CONTAINER=it-wildfly-11.0.0-managed
-  - CONTAINER=it-wildfly-11.0.0-embedded
-  - CONTAINER=it-wildfly-10.1.0-managed
-  - CONTAINER=it-wildfly-10.1.0-embedded
+  - CONTAINER=
+  - CONTAINER=-Dit=wildfly-11.0.0-managed
+  - CONTAINER=-Dit=wildfly-11.0.0-embedded
+  - CONTAINER=-Dit=wildfly-10.1.0-managed
+  - CONTAINER=-Dit=wildfly-10.1.0-embedded
+  - CONTAINER=-Dit=wildfly-10.1.0-embedded
+  - CONTAINER=-Dit=glassfish-5.0-embedded
+  - CONTAINER=-Dit=glassfish-4.1.2-embedded
+
+#  https://issues.jboss.org/browse/ARQ-2155
 
 #install: install any dependencies required
 #script: run the build script
 #deploy deploy
 
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P $CONTAINER
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V $CONTAINER
 
 script:
   - mvn test integration-test verify -B -P $CONTAINER
