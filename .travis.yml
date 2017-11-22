@@ -3,14 +3,14 @@ jdk:
   - oraclejdk8
 
 env:
-  - CONTAINER="-DnoIt=DnoIt"
-  - CONTAINER="-Dit=wildfly-11.0.0-managed"
-  - CONTAINER="-Dit=wildfly-11.0.0-embedded"
-  - CONTAINER="-Dit=wildfly-10.1.0-managed"
-  - CONTAINER="-Dit=wildfly-10.1.0-embedded"
-  - CONTAINER="-Dit=wildfly-10.1.0-embedded"
-  - CONTAINER="-Dit=glassfish-5.0-embedded"
-  - CONTAINER="-Dit=glassfish-4.1.2-embedded"
+  - CONTAINER=no
+  - CONTAINER=wildfly-11.0.0-managed
+  - CONTAINER=wildfly-11.0.0-embedded
+  - CONTAINER=wildfly-10.1.0-managed
+  - CONTAINER=wildfly-10.1.0-embedded
+  - CONTAINER=wildfly-10.1.0-embedded
+  - CONTAINER=glassfish-5.0-embedded
+  - CONTAINER=glassfish-4.1.2-embedded
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
@@ -19,7 +19,7 @@ env:
 #deploy deploy
 
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V $CONTAINER
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dit=$CONTAINER
 
 script:
   - mvn test integration-test verify -B -P $CONTAINER

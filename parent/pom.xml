@@ -493,13 +493,33 @@
         </dependency>
     </dependencies>
 
-    <!--todo extract to common module-->
     <profiles>
+        <profile>
+            <id>it-default</id>
+            <activation>
+                <property>
+                    <name>!it</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>it-skip</id>
             <activation>
                 <property>
-                    <name>!it</name>
+                    <name>it</name>
+                    <value>no</value>
                 </property>
             </activation>
             <build>
