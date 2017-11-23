@@ -10,9 +10,17 @@ import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import java.io.File;
-import java.net.URL;
+import java.net.URI;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyIterable;
 
 @RunWith(Arquillian.class)
 public class SampleProjectIT {
@@ -27,11 +35,13 @@ public class SampleProjectIT {
     }
 
     @ArquillianResource
-    URL applicationUrl;
+    URI applicationUrl;
 
 
     @Test
     public void dummy() {
-        System.out.println("sdf" + applicationUrl);
+        List<Note> notes = ClientBuilder.newClient().target(applicationUrl).path("rest").path("notes").request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {
+        });
+        assertThat(notes, emptyIterable());
     }
 }

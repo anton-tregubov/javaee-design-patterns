@@ -37,6 +37,8 @@
         <!--library-->
         <guava-version>23.3-jre</guava-version>
         <vavr-version>0.9.1</vavr-version>
+        <immutables-version>2.5.6</immutables-version>
+        <jsr-305-version>3.0.1</jsr-305-version>
         <!--test-->
         <arquillian-version>1.1.13.Final</arquillian-version>
         <shrinkwrap-resolver-version>2.2.6</shrinkwrap-resolver-version>
@@ -380,6 +382,16 @@
                 <artifactId>vavr</artifactId>
                 <version>${vavr-version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.immutables</groupId>
+                <artifactId>value</artifactId>
+                <version>${immutables-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr-305-version}</version>
+            </dependency>
             <!--Library end-->
             <!--Test start-->
             <dependency>
@@ -441,6 +453,23 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
