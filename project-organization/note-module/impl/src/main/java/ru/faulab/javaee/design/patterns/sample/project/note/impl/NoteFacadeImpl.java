@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Objects;
 import java.util.SortedSet;
 
@@ -22,6 +24,8 @@ public class NoteFacadeImpl implements NoteFacade {
         notes = Sets.newTreeSet((n1, n2) -> ComparisonChain.start()
                 .compare(n1.getCreatedWhen(), n2.getCreatedWhen())
                 .compare(n1.getId(), n2.getId()).result());
+
+        notes.add(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build());
     }
 
     @Nonnull

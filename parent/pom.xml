@@ -38,6 +38,7 @@
         <guava-version>23.3-jre</guava-version>
         <vavr-version>0.9.1</vavr-version>
         <immutables-version>2.5.6</immutables-version>
+        <jackson-version>2.9.2</jackson-version>
         <jsr-305-version>3.0.1</jsr-305-version>
         <!--test-->
         <arquillian-version>1.1.13.Final</arquillian-version>
@@ -340,6 +341,13 @@
         <dependencies>
             <!--BOM start-->
             <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.shrinkwrap.descriptors</groupId>
                 <artifactId>shrinkwrap-descriptors-bom</artifactId>
                 <version>${shrinkwrap-descriptors-version}</version>
@@ -472,6 +480,14 @@
         <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

@@ -18,32 +18,31 @@ public class NotesResource
     @Inject
     NoteFacade noteFacade;
 
-    @Path("/")
     @GET
     public List<Note> getAllNotes()
     {
         return ImmutableList.copyOf(noteFacade.getAllNotes());
     }
 
-    @Path("/{id}")
+    @Path("{id}")
     @GET
     public Note getNote(@PathParam("id") String id) {
         return noteFacade.findById(id);
     }
 
-    @Path("/{id}")
+    @Path("{id}")
     @DELETE
     public void deleteNote(@PathParam("id") String id) {
         noteFacade.deleteNote(id);
     }
 
-    @Path("/{text}")
+    @Path("{text}")
     @POST
     public Note createNote(@PathParam("text") String text) {
         return noteFacade.createNote(text);
     }
 
-    @Path("/{id}")
+    @Path("{id}")
     @PUT
     public Note updateNote(@Valid Note note) {
         return noteFacade.updateNote(note);
