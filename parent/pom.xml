@@ -657,7 +657,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <jboss.home>${project.build.directory}/wildfly-${wildfly-version}</jboss.home>
                             </systemPropertyVariables>
@@ -731,7 +731,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <jboss.home>${project.build.directory}/wildfly-${wildfly-version}</jboss.home>
                             </systemPropertyVariables>
@@ -805,7 +805,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <jboss.home>${project.build.directory}/wildfly-${wildfly-version}</jboss.home>
                             </systemPropertyVariables>
@@ -879,7 +879,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <jboss.home>${project.build.directory}/wildfly-${wildfly-version}</jboss.home>
                             </systemPropertyVariables>
@@ -1144,7 +1144,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <javax.el.ExpressionFactory>org.apache.el.ExpressionFactoryImpl</javax.el.ExpressionFactory>
                             </systemPropertyVariables>
                         </configuration>
@@ -1189,7 +1189,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <tomee.classifier>plus</tomee.classifier>
                                 <tomee.version>${arquillian-tomee-container-version}</tomee.version>
                                 <tomee.dir>${project.build.directory}/tomee/server</tomee.dir>

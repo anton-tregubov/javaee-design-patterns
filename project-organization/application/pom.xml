@@ -12,39 +12,13 @@
 
     <groupId>ru.faulab.javaee-design-patterns.project-organization</groupId>
     <artifactId>application</artifactId>
-    <packaging>ear</packaging>
+    <packaging>war</packaging>
 
     <name>project-organization.application</name>
 
     <properties>
         <has-not-it>false</has-not-it>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <configuration>
-                    <modules>
-                        <jarModule>
-                            <groupId>${project.groupId}.note-module</groupId>
-                            <artifactId>note-api</artifactId>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>${project.groupId}.note-module</groupId>
-                            <artifactId>note-impl</artifactId>
-                        </jarModule>
-                        <webModule>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>application-web</artifactId>
-                            <contextRoot>/</contextRoot>
-                        </webModule>
-                    </modules>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -58,20 +32,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>application-web</artifactId>
+            <groupId>${project.groupId}.note-module</groupId>
+            <artifactId>note-web</artifactId>
             <version>${project.version}</version>
-            <type>war</type>
         </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>application-web</artifactId>
-            <version>${project.version}</version>
-            <classifier>classes</classifier>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jaxb-annotations</artifactId>
@@ -101,6 +65,4 @@
             <artifactId>jackson-datatype-jaxrs</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>
