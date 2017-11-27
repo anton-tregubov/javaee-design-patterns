@@ -1,59 +1,76 @@
 package ru.faulab.javaee.design.patterns.sample.project.note.impl;
 
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Sets;
+import io.vavr.collection.SortedSet;
+import io.vavr.collection.TreeSet;
+import io.vavr.control.Option;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.concurrent.ThreadSafe;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
-import java.util.SortedSet;
+import java.util.UUID;
 
 @ApplicationScoped
 @Default
+@ThreadSafe
 public class NoteFacadeImpl implements NoteFacade {
-    private final SortedSet<Note> notes;
+    private static final Comparator<Note> COMPARATOR = Comparator.comparing(Note::getCreatedWhen).thenComparing(Note::getId);
 
-    public NoteFacadeImpl() {
-        notes = Sets.newTreeSet((n1, n2) -> ComparisonChain.start()
-                .compare(n1.getCreatedWhen(), n2.getCreatedWhen())
-                .compare(n1.getId(), n2.getId()).result());
+    private SortedSet<Note> notes;
 
-        notes.add(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build());
+    @PostConstruct
+    @PreDestroy
+    void init() {
+        notes = TreeSet.empty(COMPARATOR);
+        //temp
+        notes = notes.add(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build());
     }
+
 
     @Nonnull
     @Override
     public Iterable<Note> getAllNotes() {
-        return ImmutableSortedSet.copyOf(notes);
+        return notes;
     }
 
     @Nonnull
     @Override
     public Note createNote(String text) {
-        return null;
+        Note note = Note.builder().id(UUID.randomUUID().toString()).content(text).createdWhen(LocalDateTime.now()).build();
+        notes = notes.add(note);
+        return note;
     }
 
     @Nullable
     @Override
     public Note findById(String id) {
-        return notes.stream().filter(n -> Objects.equals(n.getId(), id)).findFirst().orElse(null);
+        return getNoteById(id).getOrElse((Note) null);
     }
 
     @Override
     public void deleteNote(String id) {
-        notes.removeIf(n -> Objects.equals(n.getId(), id));
+        notes = getNoteById(id).map(notes::remove).getOrElse(notes);
     }
 
     @Override
     public Note updateNote(Note note) {
-        deleteNote(note.getId());
-        return createNote(note.getContent());
+        Option<Note> noteById = getNoteById(note.getId());
+        Note toAdd = noteById.map(n -> n.withContent(note.getContent())).getOrElseThrow(() -> new IllegalArgumentException(String.format(Locale.ENGLISH, "'%1$s' not found", note.getId())));
+        notes = noteById.map(notes::remove).getOrElse(notes).add(toAdd);
+        return toAdd;
+    }
+
+    private Option<Note> getNoteById(String id) {
+        return notes.find(n -> Objects.equals(n.getId(), id));
     }
 }

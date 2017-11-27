@@ -34,6 +34,8 @@ public interface Note extends Serializable {
     @Nonnull
     LocalDateTime getCreatedWhen();
 
+    Note withContent(@NotNull @Size(min = 1, max = 256) String value);
+
     @Nonnull
     static NoteBuilder builder() {
         return new NoteBuilder();

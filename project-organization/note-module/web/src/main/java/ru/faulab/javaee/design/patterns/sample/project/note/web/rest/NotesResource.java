@@ -1,6 +1,5 @@
 package ru.faulab.javaee.design.patterns.sample.project.note.web.rest;
 
-import com.google.common.collect.ImmutableList;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
 
@@ -21,7 +20,7 @@ public class NotesResource {
 
     @GET
     public List<Note> getAllNotes() {
-        return ImmutableList.copyOf(noteFacade.getAllNotes());
+        return io.vavr.collection.List.ofAll(noteFacade.getAllNotes()).asJava();
     }
 
     @Path("{id}")
