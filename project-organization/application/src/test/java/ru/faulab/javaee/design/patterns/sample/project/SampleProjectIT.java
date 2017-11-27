@@ -29,10 +29,7 @@ public class SampleProjectIT {
     public static WebArchive createDeployment() {
         String testingArtifact = System.getProperty("testingArtifact");
         Preconditions.checkNotNull(testingArtifact, "\"testingArtifact\" java property missing");
-        WebArchive archive = ShrinkWrap.createFromZipFile(WebArchive.class, new File(testingArtifact));
-//        enterpriseArchive.getAsType(WebArchive.class, path -> path.get().endsWith(".war"))
-//                .stream().findFirst().ifPresent(webArchive -> Testable.archiveToTest(webArchive.addClass(SampleProjectIT.class)));
-        return archive;
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File(testingArtifact));
     }
 
     @ArquillianResource

@@ -1145,14 +1145,14 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables combine.children="append">
-                                <javax.el.ExpressionFactory>org.apache.el.ExpressionFactoryImpl</javax.el.ExpressionFactory>
+                                <javax.el.ExpressionFactory>org.apache.el.ExpressionFactoryImpl
+                                </javax.el.ExpressionFactory>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-
 
 
         <profile>

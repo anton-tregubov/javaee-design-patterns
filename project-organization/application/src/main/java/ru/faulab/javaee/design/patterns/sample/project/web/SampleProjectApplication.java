@@ -4,6 +4,5 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("rest")
-public class SampleProjectApplication extends Application
-{
+public class SampleProjectApplication extends Application {
 }

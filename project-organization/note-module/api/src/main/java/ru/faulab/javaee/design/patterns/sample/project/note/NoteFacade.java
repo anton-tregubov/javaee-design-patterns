@@ -3,8 +3,7 @@ package ru.faulab.javaee.design.patterns.sample.project.note;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public interface NoteFacade
-{
+public interface NoteFacade {
     @Nonnull
     Iterable<Note> getAllNotes();
 

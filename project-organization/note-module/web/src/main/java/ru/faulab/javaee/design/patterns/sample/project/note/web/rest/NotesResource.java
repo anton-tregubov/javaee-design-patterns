@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -13,14 +14,13 @@ import java.util.List;
 @Path("notes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class NotesResource
-{
+@ApplicationScoped
+public class NotesResource {
     @Inject
-    NoteFacade noteFacade;
+    private NoteFacade noteFacade;
 
     @GET
-    public List<Note> getAllNotes()
-    {
+    public List<Note> getAllNotes() {
         return ImmutableList.copyOf(noteFacade.getAllNotes());
     }
 
