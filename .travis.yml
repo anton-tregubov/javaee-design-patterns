@@ -1,7 +1,10 @@
 language: java
 jdk:
   - oraclejdk8
-
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
 env:
   - CONTAINER=no
   - CONTAINER=wildfly-11.0.0-managed
