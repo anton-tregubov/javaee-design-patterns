@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.note;
+package ru.faulab.javaee.design.patterns.sample.project.platform;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;

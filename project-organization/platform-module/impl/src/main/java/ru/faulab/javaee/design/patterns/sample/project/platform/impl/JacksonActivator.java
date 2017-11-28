@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.web;
+package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
 
 import com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper;
 import com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper;
@@ -16,7 +16,7 @@ import java.util.Locale;
 
 @Provider
 public class JacksonActivator implements Feature {
-    //
+
     @Override
     public boolean configure(FeatureContext context) {
         final Configuration config = context.getConfiguration();

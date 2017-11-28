@@ -9,8 +9,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
-import ru.faulab.javaee.design.patterns.sample.project.web.JacksonActivator;
-import ru.faulab.javaee.design.patterns.sample.project.web.JacksonConfiguration;
+import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
+import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonConfiguration;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;

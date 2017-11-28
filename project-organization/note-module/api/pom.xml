@@ -16,4 +16,12 @@
 
     <name>project-organization.note-module.api</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>ru.faulab.javaee-design-patterns.project-organization.platform-module</groupId>
+            <artifactId>platform-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

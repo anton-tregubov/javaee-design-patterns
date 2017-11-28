@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.web;
+package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
