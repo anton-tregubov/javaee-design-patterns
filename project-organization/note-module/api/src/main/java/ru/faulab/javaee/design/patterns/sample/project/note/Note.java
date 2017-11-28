@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Value.Immutable
 @Value.Style(implementationNestedInBuilder = true,
         jdkOnly = true,
-        visibility = Value.Style.ImplementationVisibility.PACKAGE,
+        visibility = Value.Style.ImplementationVisibility.PUBLIC,
         builderVisibility = Value.Style.BuilderVisibility.PUBLIC,
         optionalAcceptNullable = true,
         get = {"get*", "is*"})

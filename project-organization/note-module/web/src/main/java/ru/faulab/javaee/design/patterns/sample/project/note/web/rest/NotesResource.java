@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Path("notes")
 @Produces(MediaType.APPLICATION_JSON)
@@ -19,8 +18,8 @@ public class NotesResource {
     private NoteFacade noteFacade;
 
     @GET
-    public List<Note> getAllNotes() {
-        return io.vavr.collection.List.ofAll(noteFacade.getAllNotes()).asJava();
+    public Iterable<Note> getAllNotes() {
+        return noteFacade.getAllNotes();
     }
 
     @Path("{id}")

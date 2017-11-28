@@ -40,7 +40,7 @@ public class NoteFacadeImpl implements NoteFacade {
     @Nonnull
     @Override
     public Iterable<Note> getAllNotes() {
-        return notes;
+        return notes.toJavaList();
     }
 
     @Nonnull

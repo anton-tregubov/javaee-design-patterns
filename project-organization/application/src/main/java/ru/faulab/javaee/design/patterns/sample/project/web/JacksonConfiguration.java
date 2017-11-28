@@ -3,8 +3,6 @@ package ru.faulab.javaee.design.patterns.sample.project.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
@@ -12,7 +10,6 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 @Provider
-@Produces(MediaType.APPLICATION_JSON)
 public class JacksonConfiguration implements ContextResolver<ObjectMapper> {
     private final ObjectMapper objectMapper;
 

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.web.JacksonConfiguration;
+import ru.faulab.javaee.design.patterns.sample.project.web.PriorityJacksonJsonProvider;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
@@ -38,8 +39,11 @@ public class SampleProjectIT {
 
     @Test
     public void dummy() {
-        List<Note> notes = ClientBuilder.newClient().register(JacksonConfiguration.class).target(applicationUrl).path("rest").path("notes").request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {
-        });
+        List<Note> notes = ClientBuilder.newClient()
+                .register(JacksonConfiguration.class)
+                .register(PriorityJacksonJsonProvider.class)
+                .target(applicationUrl).path("rest").path("notes")
+                .request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {});
         assertThat(notes, contains(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build()));
     }
 }
