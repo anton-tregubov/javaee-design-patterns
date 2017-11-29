@@ -24,17 +24,14 @@ env:
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
-#addons:
-#  sonarcloud:
-#    organization: "javaee-design-patterns"
-#    token:
-#      secure: $SONAR_CLOUD_TOKEN
-#script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+addons:
+  sonarcloud:
+    organization: "javaee-design-patterns"
+    token:
+      secure: $SONAR_CLOUD_TOKEN
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P $PROFILES
 
 script:
-  - mvn test integration-test verify -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
+  - mvn test integration-test verify install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
