@@ -1,32 +1,40 @@
 language: java
+
 jdk:
   - oraclejdk8
+
 cache:
   directories:
   - .autoconf
   - $HOME/.m2
+
 env:
-  - CONTAINER=no
-  - CONTAINER=wildfly-11.0.0-managed
-  - CONTAINER=wildfly-11.0.0-embedded
-  - CONTAINER=wildfly-10.1.0-managed
-  - CONTAINER=wildfly-10.1.0-embedded
-  - CONTAINER=wildfly-10.1.0-embedded
-  - CONTAINER=glassfish-5.0-managed
-  - CONTAINER=glassfish-5.0-embedded
-  - CONTAINER=glassfish-4.1.2-managed
-  - CONTAINER=glassfish-4.1.2-embedded
-  - CONTAINER=tomee-7.0.4-managed
-  - CONTAINER=tomee-7.0.4-embedded
+  - PROFILES=it-skip
+  - PROFILES=!it-skip,it-wildfly-11.0.0-managed,code-quality
+  - PROFILES=!it-skip,it-wildfly-11.0.0-embedded
+  - PROFILES=!it-skip,it-wildfly-10.1.0-managed
+  - PROFILES=!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!it-skip,it-glassfish-5.0-managed
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded
+  - PROFILES=!it-skip,it-glassfish-4.1.2-managed
+  - PROFILES=!it-skip,it-glassfish-4.1.2-embedded
+  - PROFILES=!it-skip,it-tomee-7.0.4-managed
+  - PROFILES=!it-skip,it-tomee-7.0.4-embedded
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
-#install: install any dependencies required
-#script: run the build script
-#deploy deploy
+#addons:
+#  sonarcloud:
+#    organization: "javaee-design-patterns"
+#    token:
+#      secure: $SONAR_CLOUD_TOKEN
+#script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dit=$CONTAINER
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P $PROFILES
 
 script:
-  - mvn test integration-test verify -B -P $CONTAINER
+  - mvn test integration-test verify -B -P $PROFILES

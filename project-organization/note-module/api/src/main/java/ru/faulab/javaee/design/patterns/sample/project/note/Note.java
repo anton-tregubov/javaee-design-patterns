@@ -1,6 +1,7 @@
 package ru.faulab.javaee.design.patterns.sample.project.note;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import ru.faulab.javaee.design.patterns.sample.project.note.generated.NoteBuilder;
 import ru.faulab.javaee.design.patterns.sample.project.platform.Dto;
 
 import javax.annotation.Nonnull;

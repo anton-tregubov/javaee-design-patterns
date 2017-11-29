@@ -11,6 +11,7 @@ import java.lang.annotation.*;
         visibility = Value.Style.ImplementationVisibility.PACKAGE,/*should be package but glassfish*/
         builderVisibility = Value.Style.BuilderVisibility.PUBLIC,
         optionalAcceptNullable = true,
+        packageGenerated = "*.generated",
         get = {"get*", "is*"})
 @Documented
 @Target({ElementType.PACKAGE, ElementType.TYPE})
