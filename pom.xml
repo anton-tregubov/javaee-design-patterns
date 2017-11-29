@@ -102,5 +102,35 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>coveralls-deploy</id>
+            <activation>
+                <property>
+                    <name>coveralls-token</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <version>4.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>coveralls-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <phase>install</phase>
+                                <configuration>
+                                    <repoToken>${coveralls-token}</repoToken>
+                                    <jacocoReports>${project.reporting.outputDirectory}/jacoco-aggregate/jacoco.xml</jacocoReports>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
