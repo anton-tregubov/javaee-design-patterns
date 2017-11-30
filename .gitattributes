@@ -16,6 +16,7 @@
 *.json text eol=crlf
 *.jade text eol=crlf
 *.pug text eol=crlf
+*.properties text eol=crlf
 *.sh text eol=lf
 *.eot binary
 *.ttf binary
