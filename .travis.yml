@@ -31,7 +31,7 @@ addons:
       secure: $SONAR_CLOUD_TOKEN
 
 install:
-  - mvn maven-dependency-plugin:go-offline -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
+  - mvn org.apache.maven.plugins:maven-dependency-plugin:go-offline -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
 
 script:
   - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
