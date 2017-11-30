@@ -27,5 +27,6 @@ env:
 install:
   - mvn clean install -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
 
-#script:
-#  - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
+#ignore default
+script:
+  - mvn --version

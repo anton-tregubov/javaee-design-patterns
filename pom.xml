@@ -141,8 +141,10 @@
             </activation>
             <properties>
                 <sonar.organization>anton-tregubov-github</sonar.organization>
+                <sonar.projectKey>javaee-design-patterns</sonar.projectKey>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.login>${sonar-token}</sonar.login>
+                <sonar.jacoco.reportPath>${project.basedir}/jacoco-data/jacoco.exec</sonar.jacoco.reportPath>
                 <sonar.jacoco.itReportPath>${project.basedir}/jacoco-data/jacoco-it.exec</sonar.jacoco.itReportPath>
             </properties>
             <build>
