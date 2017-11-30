@@ -13,7 +13,7 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 public class JacksonConfiguration implements ContextResolver<ObjectMapper> {
     private final ObjectMapper objectMapper;
 
-    public JacksonConfiguration() throws Exception {
+    public JacksonConfiguration() {
         this.objectMapper = new ObjectMapper()
                 .findAndRegisterModules()
                 .registerModule(new JavaTimeModule())

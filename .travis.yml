@@ -20,9 +20,13 @@ env:
   - PROFILES=!it-skip,it-glassfish-4.1.2-embedded
   - PROFILES=!it-skip,it-tomee-7.0.4-managed
   - PROFILES=!it-skip,it-tomee-7.0.4-embedded
-  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar org.eluder.coveralls:coveralls-maven-plugin:report' PROPERTIES='-Dsonar.organization=anton-tregubov-github -Dsonar.projectKey=javaee-design-patterns -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_CLOUD_TOKEN -DrepoToken=$COVERALLS_REPO_TOKEN'
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar org.eluder.coveralls:coveralls-maven-plugin:report' PROPERTIES='-Dsonar.organization=anton-tregubov-github -Dsonar.projectKey=javaee-design-patterns -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -DrepoToken=$COVERALLS_REPO_TOKEN'
 
 #  https://issues.jboss.org/browse/ARQ-2155
+matrix:
+  allow_failures:
+    - env: PROFILES=!it-skip,it-wildfly-11.0.0-embedded
+    - env: PROFILES=!it-skip,it-glassfish-4.1.2-managed
 
 #download
 install:
@@ -30,3 +34,5 @@ install:
 #execute
 script:
   - mvn verify $GOALS -B -V -P $PROFILES $PROPERTIES
+
+sudo: required
