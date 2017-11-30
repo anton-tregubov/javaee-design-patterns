@@ -1,8 +1,10 @@
 # JavaEE Design Patterns
 [![Build Status](https://travis-ci.org/anton-tregubov/javaee-design-patterns.svg?branch=master)](https://travis-ci.org/anton-tregubov/javaee-design-patterns)
 [![Coverage Status](https://coveralls.io/repos/github/anton-tregubov/javaee-design-patterns/badge.svg?branch=master)](https://coveralls.io/github/anton-tregubov/javaee-design-patterns?branch=master)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ru.faulab.javaee-design-patterns:javaee-design-patterns)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns) 
+[![Code Smells](https://sonarcloud.io/api/badges/measure?key=ru.faulab.javaee-design-patterns:javaee-design-patterns&metric=code_smells)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns)
+[![Technical debt](https://sonarcloud.io/api/badges/measure?key=ru.faulab.javaee-design-patterns:javaee-design-patterns&metric=sqale_index)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/anton-tregubov/javaee-design-patterns/master/LICENSE.md)
-[![SonarQube Tech Debt](https://img.shields.io/sonar/https/sonarcloud.io/anton-tregubov-github:javaee-design-patterns/tech_debt.svg?style=flat-square)](https://sonarcloud.io/dashboard?id=javaee-design-patterns)
 
 *Read this in other languages: [English](README.md), [Русский](README.ru.md).*
 
