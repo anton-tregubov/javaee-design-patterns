@@ -5,28 +5,45 @@ jdk:
 
 cache:
   directories:
-  - .autoconf
   - $HOME/.m2
 
 env:
-  - PROFILES=!sonar-deploy,!coveralls-deploy,it-skip
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-11.0.0-managed
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-11.0.0-embedded
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-managed
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-5.0-managed
-  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-4.1.2-managed
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-4.1.2-embedded
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-tomee-7.0.4-managed
-  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-tomee-7.0.4-embedded
+  - PROFILES=it-skip
+  - PROFILES=!it-skip,it-wildfly-11.0.0-managed
+  - PROFILES=!it-skip,it-wildfly-11.0.0-embedded
+  - PROFILES=!it-skip,it-wildfly-10.1.0-managed
+  - PROFILES=!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!it-skip,it-glassfish-5.0-managed
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded
+  - PROFILES=!it-skip,it-glassfish-4.1.2-managed
+  - PROFILES=!it-skip,it-glassfish-4.1.2-embedded
+  - PROFILES=!it-skip,it-tomee-7.0.4-managed
+  - PROFILES=!it-skip,it-tomee-7.0.4-embedded
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar org.eluder.coveralls:coveralls-maven-plugin:report' PROPERTIES='-Dsonar.organization=anton-tregubov-github -Dsonar.projectKey=javaee-design-patterns -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_CLOUD_TOKEN -DrepoToken=$COVERALLS_REPO_TOKEN'
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
+#download
 install:
-  - mvn clean install -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
-
-#ignore default
+  - mvn clean install -B -V -P $PROFILES -DskipTests=true -Dmaven.javadoc.skip=true
+#execute
 script:
-  - mvn --version
+  - mvn verify $GOALS -B -V -P $PROFILES $PROPERTIES
+#
+#
+#
+#    -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN ,code-quality
+#                        <groupId>org.sonarsource.scanner.maven</groupId>
+#                        <artifactId>sonar-maven-plugin</artifactId>
+#                        <version>3.4.0.905</version>
+#
+#                                                <groupId>org.eluder.coveralls</groupId>
+#                                                <artifactId>coveralls-maven-plugin</artifactId>
+#                                                <version>4.3.0</version>
+#                <!--<sonar.organization>anton-tregubov-github</sonar.organization>-->
+#                <!--<sonar.projectKey>javaee-design-patterns</sonar.projectKey>-->
+#                <!--<sonar.host.url>https://sonarcloud.io</sonar.host.url>-->
+#                <!--<sonar.login>af1fde52cb7a4ec9df3cc0e243123cd970110f49</sonar.login>-->
+#                <!--<sonar.jacoco.reportPath>${project.basedir}/jacoco-data/jacoco.exec</sonar.jacoco.reportPath>-->
+#                <!--<sonar.jacoco.itReportPath>${project.basedir}/jacoco-data/jacoco-it.exec</sonar.jacoco.itReportPath>-->
