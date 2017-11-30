@@ -25,7 +25,7 @@ env:
 #  https://issues.jboss.org/browse/ARQ-2155
 
 install:
-  - mvn org.apache.maven.plugins:maven-dependency-plugin:go-offline -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
+  - mvn clean install -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
 
-script:
-  - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
+#script:
+#  - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
