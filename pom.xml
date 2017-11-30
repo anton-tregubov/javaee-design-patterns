@@ -45,27 +45,27 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>cleanup-jacoco-data</id>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                                    <filesets>
-                                        <fileset>
-                                            <directory>jacoco-data</directory>
-                                        </fileset>
-                                    </filesets>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    <!--<plugin>-->
+                    <!--<groupId>org.apache.maven.plugins</groupId>-->
+                    <!--<artifactId>maven-clean-plugin</artifactId>-->
+                    <!--<executions>-->
+                    <!--<execution>-->
+                    <!--<id>cleanup-jacoco-data</id>-->
+                    <!--<goals>-->
+                    <!--<goal>clean</goal>-->
+                    <!--</goals>-->
+                    <!--<phase>verify</phase>-->
+                    <!--<configuration>-->
+                    <!--<excludeDefaultDirectories>true</excludeDefaultDirectories>-->
+                    <!--<filesets>-->
+                    <!--<fileset>-->
+                    <!--<directory>jacoco-data</directory>-->
+                    <!--</fileset>-->
+                    <!--</filesets>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--</executions>-->
+                    <!--</plugin>-->
                 </plugins>
             </build>
             <dependencies>
@@ -126,6 +126,38 @@
                                     <repoToken>${coveralls-token}</repoToken>
                                     <jacocoReports>${project.reporting.outputDirectory}/jacoco-aggregate/jacoco.xml</jacocoReports>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sonar-deploy</id>
+            <activation>
+                <property>
+                    <name>sonar-token</name>
+                </property>
+            </activation>
+            <properties>
+                <sonar.organization>anton-tregubov-github</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.login>${sonar-token}</sonar.login>
+                <sonar.jacoco.itReportPath>${project.basedir}/jacoco-data/jacoco-it.exec</sonar.jacoco.itReportPath>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.4.0.905</version>
+                        <executions>
+                            <execution>
+                                <id>sonar-report</id>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                                <phase>install</phase>
                             </execution>
                         </executions>
                     </plugin>

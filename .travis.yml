@@ -9,29 +9,23 @@ cache:
   - $HOME/.m2
 
 env:
-  - PROFILES=!coveralls-deploy,it-skip
-  - PROFILES=!it-skip,it-wildfly-11.0.0-managed,code-quality
-  - PROFILES=!coveralls-deploy,!it-skip,it-wildfly-11.0.0-embedded
-  - PROFILES=!coveralls-deploy,!it-skip,it-wildfly-10.1.0-managed
-  - PROFILES=!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
-  - PROFILES=!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
-  - PROFILES=!coveralls-deploy,!it-skip,it-glassfish-5.0-managed
-  - PROFILES=!coveralls-deploy,!it-skip,it-glassfish-5.0-embedded
-  - PROFILES=!coveralls-deploy,!it-skip,it-glassfish-4.1.2-managed
-  - PROFILES=!coveralls-deploy,!it-skip,it-glassfish-4.1.2-embedded
-  - PROFILES=!coveralls-deploy,!it-skip,it-tomee-7.0.4-managed
-  - PROFILES=!coveralls-deploy,!it-skip,it-tomee-7.0.4-embedded
+  - PROFILES=!sonar-deploy,!coveralls-deploy,it-skip
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-11.0.0-managed
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-11.0.0-embedded
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-managed
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-wildfly-10.1.0-embedded
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-5.0-managed
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-4.1.2-managed
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-glassfish-4.1.2-embedded
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-tomee-7.0.4-managed
+  - PROFILES=!sonar-deploy,!coveralls-deploy,!it-skip,it-tomee-7.0.4-embedded
 
 #  https://issues.jboss.org/browse/ARQ-2155
 
-addons:
-  sonarcloud:
-    organization: "javaee-design-patterns"
-    token:
-      secure: $SONAR_CLOUD_TOKEN
-
 install:
-  - mvn org.apache.maven.plugins:maven-dependency-plugin:go-offline -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
+  - mvn org.apache.maven.plugins:maven-dependency-plugin:go-offline -B -V -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
 
 script:
-  - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN
+  - mvn clean install -B -P $PROFILES -Dcoveralls-token=$COVERALLS_REPO_TOKEN -Dsonar-token=$SONAR_CLOUD_TOKEN
