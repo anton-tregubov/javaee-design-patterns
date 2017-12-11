@@ -3,22 +3,14 @@ package ru.faulab.javaee.design.patterns.sample.project.note.impl;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import io.vavr.control.Option;
-import ru.faulab.javaee.design.patterns.sample.project.note.Note;
-import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
+import ru.faulab.javaee.design.patterns.sample.project.note.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.annotation.*;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @ApplicationScoped
 @Default
@@ -32,8 +24,6 @@ public class NoteFacadeImpl implements NoteFacade {
     @PreDestroy
     void init() {
         notes = TreeSet.empty(COMPARATOR);
-        //temp
-        notes = notes.add(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build());
     }
 
 

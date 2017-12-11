@@ -2,32 +2,34 @@ package ru.faulab.javaee.design.patterns.sample.project;
 
 import com.google.common.base.Preconditions;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.*;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
-import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
-import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonConfiguration;
+import ru.faulab.javaee.design.patterns.sample.project.platform.impl.*;
 
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
 import java.io.File;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
+import java.util.*;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.emptyIterable;
+import static org.hamcrest.Matchers.iterableWithSize;
 
 @RunWith(Arquillian.class)
-public class SampleProjectIT {
+public class SampleProjectIT
+{
     @Deployment
-    public static WebArchive createDeployment() {
+    public static WebArchive createDeployment()
+    {
         String testingArtifact = System.getProperty("testingArtifact");
         Preconditions.checkNotNull(testingArtifact, "\"testingArtifact\" java property missing");
         return ShrinkWrap.createFromZipFile(WebArchive.class, new File(testingArtifact));
@@ -38,12 +40,84 @@ public class SampleProjectIT {
 
 
     @Test
-    public void dummy() {
-        List<Note> notes = ClientBuilder.newClient()
+    @InSequence(1)
+    public void empty_notes_at_startup()
+    {
+        List<Note> notes = noteRestApi().request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {});
+        assertThat(notes, emptyIterable());
+    }
+
+    @Test
+    @InSequence(2)
+    public void add_note()
+    {
+        String noteText = "Note Text";
+        Note createdNote = noteRestApi()
+                .path(noteText)
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .post(Entity.json(null), Note.class);
+        assertThat(createdNote.getId(), notNullValue());
+        assertThat(createdNote.getContent(), is(noteText));
+        assertThat(createdNote.getCreatedWhen().isBefore(LocalDateTime.now().plusSeconds(1)), is(true));
+    }
+
+    @Test
+    @InSequence(3)
+    public void only_one_note_after_add()
+    {
+        Collection<Note> notes = noteRestApi()
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get(new GenericType<List<Note>>() {});
+
+        assertThat(notes, iterableWithSize(1));
+        Note aloneNote = notes.stream().findAny().orElseThrow(AssertionError::new);
+        assertThat(aloneNote, notNullValue());
+
+        Note noteByApi = noteRestApi()
+                .path(aloneNote.getId())
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get(Note.class);
+
+        assertThat(aloneNote, is(noteByApi));
+    }
+
+    @Test
+    @InSequence(4)
+    public void update_note()
+    {
+        Note note = anyNoteRestApi().orElseThrow(AssertionError::new);
+
+        Note updatedNote = noteRestApi()
+                .path(note.getId())
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .put(Entity.entity(note.withContent("new content"), MediaType.APPLICATION_JSON_TYPE), Note.class);
+
+        assertThat(updatedNote, is(note.withContent("new content")));
+    }
+
+    @Test
+    @InSequence(5)
+    public void delete_note()
+    {
+        Note note = anyNoteRestApi().orElseThrow(AssertionError::new);
+        noteRestApi().path(note.getId()).request().delete();
+
+        assertThat(anyNoteRestApi().isPresent(), is(false));
+    }
+
+    private Optional<Note> anyNoteRestApi()
+    {
+        return noteRestApi()
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get(new GenericType<List<Note>>() {})
+                .stream().findAny();
+    }
+
+    private WebTarget noteRestApi()
+    {
+        return ClientBuilder.newClient()
                 .register(JacksonConfiguration.class)
                 .register(JacksonActivator.class)
-                .target(applicationUrl).path("rest").path("notes")
-                .request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {});
-        assertThat(notes, contains(Note.builder().id("1").content("Privet").createdWhen(LocalDateTime.of(1984, Month.DECEMBER, 8, 2, 30)).build()));
+                .target(applicationUrl).path("rest").path("notes");
     }
 }
