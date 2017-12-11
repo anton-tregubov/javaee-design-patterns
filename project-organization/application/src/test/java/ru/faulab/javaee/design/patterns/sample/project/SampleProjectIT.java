@@ -48,8 +48,7 @@ public class SampleProjectIT {
     @Test
     @InSequence(1)
     public void empty_notes_at_startup() {
-        List<Note> notes = noteRestApi().request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {
-        });
+        List<Note> notes = noteRestApi().request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Note>>() {});
         assertThat(notes, emptyIterable());
     }
 
@@ -60,7 +59,7 @@ public class SampleProjectIT {
         Note createdNote = noteRestApi()
                 .path(noteText)
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.json(null), Note.class);
+                .post(Entity.json(""), Note.class);
         assertThat(createdNote.getId(), notNullValue());
         assertThat(createdNote.getContent(), is(noteText));
         assertThat(createdNote.getCreatedWhen().isBefore(LocalDateTime.now().plusSeconds(1)), is(true));
@@ -71,8 +70,7 @@ public class SampleProjectIT {
     public void only_one_note_after_add() {
         Collection<Note> notes = noteRestApi()
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .get(new GenericType<List<Note>>() {
-                });
+                .get(new GenericType<List<Note>>() {});
 
         assertThat(notes, iterableWithSize(1));
         Note aloneNote = notes.stream().findAny().orElseThrow(AssertionError::new);
