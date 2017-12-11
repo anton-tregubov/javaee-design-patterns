@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Locale;
 
 @Path("notes")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +26,11 @@ public class NotesResource {
     @Path("{id}")
     @GET
     public Note getNote(@PathParam("id") String id) {
-        return noteFacade.findById(id);
+        Note note = noteFacade.findById(id);
+        if (note == null) {
+            throw new NotFoundException(String.format(Locale.ENGLISH, "'%1$s' not found", id));
+        }
+        return note;
     }
 
     @Path("{id}")
@@ -42,7 +47,11 @@ public class NotesResource {
 
     @Path("{id}")
     @PUT
-    public Note updateNote(@Valid Note note) {
-        return noteFacade.updateNote(note);
+    public Note updateNote(@PathParam("id") String id, @Valid Note note /*todo make NoteUpdateDto*/) {
+        Note updatedNote = noteFacade.updateNote(id, note.getContent());
+        if (updatedNote == null) {
+            throw new NotFoundException(String.format(Locale.ENGLISH, "'%1$s' not found", id));
+        }
+        return updatedNote;
     }
 }

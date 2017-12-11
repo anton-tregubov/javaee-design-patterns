@@ -3,14 +3,20 @@ package ru.faulab.javaee.design.patterns.sample.project.note.impl;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
 import io.vavr.control.Option;
-import ru.faulab.javaee.design.patterns.sample.project.note.*;
+import ru.faulab.javaee.design.patterns.sample.project.note.Note;
+import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.UUID;
 
 @ApplicationScoped
 @Default
@@ -52,10 +58,15 @@ public class NoteFacadeImpl implements NoteFacade {
         notes = getNoteById(id).map(notes::remove).getOrElse(notes);
     }
 
+
+    @Nullable
     @Override
-    public Note updateNote(Note note) {
-        Option<Note> noteById = getNoteById(note.getId());
-        Note toAdd = noteById.map(n -> n.withContent(note.getContent())).getOrElseThrow(() -> new IllegalArgumentException(String.format(Locale.ENGLISH, "'%1$s' not found", note.getId())));
+    public Note updateNote(String id, String content) {
+        Option<Note> noteById = getNoteById(id);
+        Note toAdd = noteById.map(n -> n.withContent(content)).getOrNull();
+        if (toAdd == null) {
+            return null;
+        }
         notes = noteById.map(notes::remove).getOrElse(notes).add(toAdd);
         return toAdd;
     }

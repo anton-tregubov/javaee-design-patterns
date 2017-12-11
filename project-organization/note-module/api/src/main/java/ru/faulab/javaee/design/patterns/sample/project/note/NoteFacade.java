@@ -15,6 +15,6 @@ public interface NoteFacade {
 
     void deleteNote(String id);
 
-    Note updateNote(Note note);
-
+    @Nullable
+    Note updateNote(String id, String content);
 }
