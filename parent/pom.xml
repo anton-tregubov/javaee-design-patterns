@@ -40,7 +40,7 @@
         <immutables-version>2.5.6</immutables-version>
         <jackson-version>2.9.2</jackson-version>
         <jsr-305-version>3.0.1</jsr-305-version>
-        <swagger-version>2.0.0-rc2</swagger-version>
+        <swagger-version>2.0.0-rc3</swagger-version>
         <swagger-ui-version>3.6.1</swagger-ui-version>
         <!--test-->
         <arquillian-version>1.1.13.Final</arquillian-version>
@@ -400,14 +400,10 @@
                 <version>${jsr-305-version}</version>
             </dependency>
             <dependency>
-                <groupId>io.swagger</groupId>
+                <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-jaxrs2</artifactId>
                 <version>${swagger-version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.core</groupId>
-                        <artifactId>jersey-server</artifactId>
-                    </exclusion>
                     <exclusion>
                         <artifactId>validation-api</artifactId>
                         <groupId>javax.validation</groupId>
@@ -415,7 +411,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>io.swagger</groupId>
+                <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-version}</version>
             </dependency>

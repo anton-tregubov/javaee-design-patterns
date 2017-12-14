@@ -8,13 +8,14 @@ import java.lang.annotation.*;
 @JsonSerialize // Jackson automatic integration, why not?
 @Value.Style(implementationNestedInBuilder = true,
         jdkOnly = true,
-        visibility = Value.Style.ImplementationVisibility.PACKAGE,/*should be package but glassfish*/
+        visibility = Value.Style.ImplementationVisibility.PACKAGE,
         builderVisibility = Value.Style.BuilderVisibility.PUBLIC,
         optionalAcceptNullable = true,
         packageGenerated = "*.generated",
-        get = {"get*", "is*"})
+        get = {"get*", "is*"},
+        validationMethod = Value.Style.ValidationMethod.NONE)
 @Documented
 @Target({ElementType.PACKAGE, ElementType.TYPE})
 @Retention(RetentionPolicy.CLASS)
-public @interface Dto {
+public @interface ValueObject {
 }

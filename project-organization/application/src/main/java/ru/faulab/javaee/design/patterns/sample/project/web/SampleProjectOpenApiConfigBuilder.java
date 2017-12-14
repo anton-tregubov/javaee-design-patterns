@@ -1,11 +1,11 @@
 package ru.faulab.javaee.design.patterns.sample.project.web;
 
-import io.swagger.oas.integration.SwaggerConfiguration;
-import io.swagger.oas.integration.api.OpenAPIConfigBuilder;
-import io.swagger.oas.integration.api.OpenAPIConfiguration;
-import io.swagger.oas.models.OpenAPI;
-import io.swagger.oas.models.info.Info;
-import io.swagger.oas.models.servers.Server;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.integration.api.OpenAPIConfigBuilder;
+import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import io.vavr.collection.HashSet;
 
 import javax.enterprise.inject.spi.CDI;
@@ -24,7 +24,7 @@ public class SampleProjectOpenApiConfigBuilder implements OpenAPIConfigBuilder {
                                         .title("Simple Project Api")
                                         .version(getClass().getPackage().getImplementationVersion())
                         )
-                                .servers(Collections.singletonList(new Server().description("Current Server").url(CDI.current().select(ServletContext.class).get().getContextPath() + "/" + SampleProjectApplication.GLOBAL_REST_ADI_PREFIX)))
+                                .servers(Collections.singletonList(new Server().description("Current Server").url(CDI.current().select(ServletContext.class).get().getContextPath())))
                 );
     }
 }

@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
+import ru.faulab.javaee.design.patterns.sample.project.note.web.rest.vo.NoteData;
 import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
 import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonConfiguration;
 
@@ -57,9 +58,8 @@ public class SampleProjectIT {
     public void add_note() {
         String noteText = "Note Text";
         Note createdNote = noteRestApi()
-                .path(noteText)
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.json(""), Note.class);
+                .post(Entity.json(NoteData.builder().content(noteText).build()), Note.class);
         assertThat(createdNote.getId(), notNullValue());
         assertThat(createdNote.getContent(), is(noteText));
         assertThat(createdNote.getCreatedWhen().isBefore(LocalDateTime.now().plusSeconds(1)), is(true));
@@ -89,12 +89,13 @@ public class SampleProjectIT {
     public void update_note() {
         Note note = anyNoteRestApi().orElseThrow(AssertionError::new);
 
+        String newContent = "new content";
         Note updatedNote = noteRestApi()
                 .path(note.getId())
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .put(Entity.entity(note.withContent("new content"), MediaType.APPLICATION_JSON_TYPE), Note.class);
+                .put(Entity.json(NoteData.builder().content(newContent).build()), Note.class);
 
-        assertThat(updatedNote, is(note.withContent("new content")));
+        assertThat(updatedNote, is(note.withContent(newContent)));
     }
 
     @Test
@@ -110,6 +111,23 @@ public class SampleProjectIT {
     public void not_found_note_read_case() {
         assertThat(noteRestApi().path("42").request(MediaType.APPLICATION_JSON_TYPE).get().getStatus(),
                 is(Response.Status.NOT_FOUND.getStatusCode()));
+    }
+
+    @Test
+    public void invalid_create_data() {
+        assertThat(noteRestApi()
+                        .request(MediaType.APPLICATION_JSON_TYPE)
+                        .post(Entity.json(NoteData.builder().build())).getStatus(),
+                is(Response.Status.BAD_REQUEST.getStatusCode()));
+    }
+
+    @Test
+    public void invalid_update_data() {
+        assertThat(noteRestApi()
+                        .path("any")
+                        .request(MediaType.APPLICATION_JSON_TYPE)
+                        .put(Entity.json(NoteData.builder().build())).getStatus(),
+                is(Response.Status.BAD_REQUEST.getStatusCode()));
     }
 
     @Test

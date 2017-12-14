@@ -1,6 +1,7 @@
 package ru.faulab.javaee.design.patterns.sample.project.note.impl;
 
 import io.vavr.collection.SortedSet;
+import io.vavr.collection.Traversable;
 import io.vavr.collection.TreeSet;
 import io.vavr.control.Option;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
@@ -35,8 +36,8 @@ public class NoteFacadeImpl implements NoteFacade {
 
     @Nonnull
     @Override
-    public Iterable<Note> getAllNotes() {
-        return notes.toJavaList();
+    public Traversable<Note> getAllNotes() {
+        return notes;
     }
 
     @Nonnull

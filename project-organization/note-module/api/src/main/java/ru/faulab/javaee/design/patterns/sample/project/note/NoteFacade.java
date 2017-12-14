@@ -1,13 +1,12 @@
 package ru.faulab.javaee.design.patterns.sample.project.note;
 
-import javax.annotation.Nonnull;
+import io.vavr.collection.Traversable;
+
 import javax.annotation.Nullable;
 
 public interface NoteFacade {
-    @Nonnull
-    Iterable<Note> getAllNotes();
+    Traversable<Note> getAllNotes();
 
-    @Nonnull
     Note createNote(String text);
 
     @Nullable
