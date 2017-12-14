@@ -3,6 +3,7 @@ package ru.faulab.javaee.design.patterns.sample.project.web;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("rest")
+@ApplicationPath(SampleProjectApplication.GLOBAL_REST_ADI_PREFIX)
 public class SampleProjectApplication extends Application {
+    public static final String GLOBAL_REST_ADI_PREFIX = "rest";
 }
