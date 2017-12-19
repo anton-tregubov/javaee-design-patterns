@@ -48,6 +48,9 @@ public class NoteFacadeImpl implements NoteFacade {
         if (notes.size() >= DEFAULT_NOTE_LIMIT) {
             throw new GenericUserException(3, "Note limit reached");
         }
+        if ("npe".equals(text)) {
+            throw new NullPointerException();
+        }
         Note note = Note.builder().id(UUID.randomUUID().toString()).content(text).createdWhen(LocalDateTime.now()).build();
         notes = notes.add(note);
         return note;

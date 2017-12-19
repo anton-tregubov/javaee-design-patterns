@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
+import ru.faulab.javaee.design.patterns.sample.project.note.impl.NoteFacadeImpl;
 import ru.faulab.javaee.design.patterns.sample.project.note.web.rest.vo.NoteData;
 import ru.faulab.javaee.design.patterns.sample.project.platform.expection.ErrorValueObject;
 import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
@@ -30,8 +31,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.iterableWithSize;
@@ -159,11 +159,19 @@ public class SampleProjectIT {
                 is(Response.Status.NOT_FOUND.getStatusCode()));
     }
 
+    @Test
+    public void unexpected_exception() {
+        Response response = noteRestApi()
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .post(Entity.json(NoteData.builder().content("npe").build()));
+        assertThat(response.getStatus(), is(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()));
+        assertThat(response.readEntity(ErrorValueObject.class).getDeveloperMessage(), containsString(NoteFacadeImpl.class.getName()));
+    }
+
     private Optional<Note> anyNoteRestApi() {
         return noteRestApi()
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .get(new GenericType<List<Note>>() {
-                })
+                .get(new GenericType<List<Note>>() {})
                 .stream().findAny();
     }
 

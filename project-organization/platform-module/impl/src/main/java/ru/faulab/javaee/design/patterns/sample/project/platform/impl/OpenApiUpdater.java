@@ -11,9 +11,13 @@ import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.servers.Server;
 import ru.faulab.javaee.design.patterns.sample.project.platform.expection.ErrorValueObject;
 
+import javax.enterprise.inject.spi.CDI;
+import javax.servlet.ServletContext;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
 
 @OpenAPIDefinition
 public class OpenApiUpdater implements ReaderListener {
@@ -29,6 +33,7 @@ public class OpenApiUpdater implements ReaderListener {
                         .title("Simple Project Api")
                         .version(getClass().getPackage().getImplementationVersion())
         );
+        openAPI.servers(Collections.singletonList(new Server().description("Current Server").url(CDI.current().select(ServletContext.class).get().getContextPath())));
         //error
         Schema errorObject = ModelConverters.getInstance().readAllAsResolvedSchema(ErrorValueObject.class).schema;
         openAPI.getComponents().addSchemas("Error", errorObject);
