@@ -1,13 +1,13 @@
 package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
-
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 @Provider
 public class JacksonConfiguration implements ContextResolver<ObjectMapper> {
@@ -17,8 +17,11 @@ public class JacksonConfiguration implements ContextResolver<ObjectMapper> {
         this.objectMapper = new ObjectMapper()
                 .findAndRegisterModules()
                 .registerModule(new JavaTimeModule())
-                .configure(WRITE_DATES_AS_TIMESTAMPS, false)
-                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+                .configure(DeserializationFeature.WRAP_EXCEPTIONS, false)
+                .configure(SerializationFeature.WRAP_EXCEPTIONS, false)
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     @Override

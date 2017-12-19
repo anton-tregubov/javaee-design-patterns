@@ -41,7 +41,7 @@ public class NotesResource {
     @Path("{id}")
     @Operation(summary = "Get note by id", description = "Get note by id")
     @ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = Note.class)))
-    @ApiResponse(responseCode = "404", description = "Note not Found", content = @Content(mediaType = MediaType.TEXT_PLAIN))
+    @ApiResponse(responseCode = "404", description = "Note not Found")
     public Note getNote(@Parameter(name = "id", required = true, example = "42") @PathParam("id") String id) {
         Note note = noteFacade.findById(id);
         if (note == null) {
@@ -53,6 +53,7 @@ public class NotesResource {
     @Path("{id}")
     @DELETE
     @Operation(summary = "Remove note by id", description = "Remove note by Id")
+    @ApiResponse(responseCode = "204", description = "Success")
     public void deleteNote(@Parameter(name = "id", required = true, example = "42") @PathParam("id") String id) {
         noteFacade.deleteNote(id);
     }
@@ -60,7 +61,6 @@ public class NotesResource {
     @POST
     @Operation(summary = "Create note", description = "Create note with content")
     @ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = Note.class)))
-    @ApiResponse(responseCode = "400", description = "Wrong note content format")
     public Note createNote(@RequestBody(description = "Parameters for create note", required = true) @Valid NoteData noteData) {
         return noteFacade.createNote(noteData.getContent());
     }
@@ -69,8 +69,7 @@ public class NotesResource {
     @PUT
     @Operation(summary = "Update note", description = "Update note by id with content")
     @ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = Note.class)))
-    @ApiResponse(responseCode = "400", description = "Wrong note content format")
-    @ApiResponse(responseCode = "404", description = "Note not Found", content = @Content(mediaType = MediaType.TEXT_PLAIN))
+    @ApiResponse(responseCode = "404", description = "Note not Found")
     public Note updateNote(@Parameter(name = "id", required = true, example = "42") @PathParam("id") String id,
                            @RequestBody(description = "Parameters for update note", required = true) @Valid NoteData noteData) {
         Note updatedNote = noteFacade.updateNote(id, noteData.getContent());
@@ -80,21 +79,3 @@ public class NotesResource {
         return updatedNote;
     }
 }
-/*
-todo Add VO
-{
-  "exception": null,
-  "fieldViolations": [],
-  "propertyViolations": [],
-  "classViolations": [],
-  "parameterViolations": [
-    {
-      "constraintType": "PARAMETER",
-      "path": "createNote.arg0.content",
-      "message": "должно быть задано",
-      "value": ""
-    }
-  ],
-  "returnValueViolations": []
-}
-* */

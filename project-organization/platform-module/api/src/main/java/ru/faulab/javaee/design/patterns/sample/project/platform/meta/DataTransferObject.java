@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.platform;
+package ru.faulab.javaee.design.patterns.sample.project.platform.meta;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
@@ -13,9 +13,9 @@ import java.lang.annotation.*;
         optionalAcceptNullable = true,
         packageGenerated = "*.generated",
         get = {"get*", "is*"},
-        validationMethod = Value.Style.ValidationMethod.NONE)
+        validationMethod = Value.Style.ValidationMethod.VALIDATION_API)
 @Documented
 @Target({ElementType.PACKAGE, ElementType.TYPE})
 @Retention(RetentionPolicy.CLASS)
-public @interface ValueObject {
+public @interface DataTransferObject {
 }

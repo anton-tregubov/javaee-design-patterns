@@ -6,6 +6,7 @@ import io.vavr.collection.TreeSet;
 import io.vavr.control.Option;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.NoteFacade;
+import ru.faulab.javaee.design.patterns.sample.project.platform.expection.GenericUserException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,6 +25,7 @@ import java.util.UUID;
 @ThreadSafe
 public class NoteFacadeImpl implements NoteFacade {
     private static final Comparator<Note> COMPARATOR = Comparator.comparing(Note::getCreatedWhen).thenComparing(Note::getId);
+    public static final int DEFAULT_NOTE_LIMIT = 100;
 
     private SortedSet<Note> notes;
 
@@ -43,6 +45,9 @@ public class NoteFacadeImpl implements NoteFacade {
     @Nonnull
     @Override
     public Note createNote(String text) {
+        if (notes.size() >= DEFAULT_NOTE_LIMIT) {
+            throw new GenericUserException(3, "Note limit reached");
+        }
         Note note = Note.builder().id(UUID.randomUUID().toString()).content(text).createdWhen(LocalDateTime.now()).build();
         notes = notes.add(note);
         return note;

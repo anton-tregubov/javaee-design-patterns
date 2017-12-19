@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.web.rest.vo.NoteData;
+import ru.faulab.javaee.design.patterns.sample.project.platform.expection.ErrorValueObject;
 import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
 import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonConfiguration;
 
@@ -26,12 +27,15 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.iterableWithSize;
+import static ru.faulab.javaee.design.patterns.sample.project.note.impl.NoteFacadeImpl.DEFAULT_NOTE_LIMIT;
 
 @RunWith(Arquillian.class)
 public class SampleProjectIT {
@@ -115,19 +119,30 @@ public class SampleProjectIT {
 
     @Test
     public void invalid_create_data() {
-        assertThat(noteRestApi()
-                        .request(MediaType.APPLICATION_JSON_TYPE)
-                        .post(Entity.json(NoteData.builder().build())).getStatus(),
-                is(Response.Status.BAD_REQUEST.getStatusCode()));
+        Response response = noteRestApi()
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .post(Entity.entity("{}", MediaType.APPLICATION_JSON_TYPE));
+        assertThat(response.getStatus(), is(Response.Status.BAD_REQUEST.getStatusCode()));
     }
 
     @Test
     public void invalid_update_data() {
-        assertThat(noteRestApi()
-                        .path("any")
-                        .request(MediaType.APPLICATION_JSON_TYPE)
-                        .put(Entity.json(NoteData.builder().build())).getStatus(),
-                is(Response.Status.BAD_REQUEST.getStatusCode()));
+        Response response = noteRestApi()
+                .path("any")
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .put(Entity.entity("{}", MediaType.APPLICATION_JSON_TYPE));
+        assertThat(response.getStatus(), is(Response.Status.BAD_REQUEST.getStatusCode()));
+    }
+
+    @Test
+    @InSequence(6)
+    public void only_100_notes_can_be_created() {
+        Function<Integer, Response> call = value -> noteRestApi()
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .post(Entity.json(NoteData.builder().content("Note # " + value).build()));
+        IntStream.range(0, DEFAULT_NOTE_LIMIT - 1).forEach(value -> assertThat(call.apply(value).getStatus(), is(Response.Status.OK.getStatusCode())));
+
+        assertThat(call.apply(100500).readEntity(ErrorValueObject.class), is(ErrorValueObject.builder().errorCode(3).userMessage("Note limit reached").build()));
     }
 
     @Test
