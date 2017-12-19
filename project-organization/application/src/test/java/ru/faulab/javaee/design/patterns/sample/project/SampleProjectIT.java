@@ -140,7 +140,7 @@ public class SampleProjectIT {
         Function<Integer, Response> call = value -> noteRestApi()
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(NoteData.builder().content("Note # " + value).build()));
-        IntStream.range(0, DEFAULT_NOTE_LIMIT - 1).forEach(value -> assertThat(call.apply(value).getStatus(), is(Response.Status.OK.getStatusCode())));
+        IntStream.range(0, DEFAULT_NOTE_LIMIT).forEach(value -> assertThat(call.apply(value).getStatus(), is(Response.Status.OK.getStatusCode())));
 
         assertThat(call.apply(100500).readEntity(ErrorValueObject.class), is(ErrorValueObject.builder().errorCode(3).userMessage("Note limit reached").build()));
     }
