@@ -10,18 +10,7 @@
         <property name="acceptSslCerts">true</property>
         <property name="webStorageEnabled">true</property>
         <property name="reuseCookies">false</property>
+        <property name="remoteReusable">false</property>
         <property name="loggingPrefs">driver=WARNING</property>
-    </extension>
-
-    <extension qualifier="screenshooter">
-        <property name="takeOnEveryAction">true</property>
-        <property name="takeWhenTestFailed">false</property>
-        <property name="takeBeforeTest ">true</property>
-        <property name="takeAfterTest">true</property>
-    </extension>
-
-    <extension qualifier="reporter">
-        <property name="report">html5</property>
-        <property name="reportAfterEvery">method</property>
     </extension>
 </arquillian>
