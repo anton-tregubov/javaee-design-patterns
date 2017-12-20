@@ -36,6 +36,7 @@
         <maven-war-plugin-version>3.0.0</maven-war-plugin-version>
         <maven-jacoco-plugin-version>0.7.9</maven-jacoco-plugin-version>
         <!--library-->
+        <guava-version>23.5-jre</guava-version>
         <vavr-version>0.9.1</vavr-version>
         <immutables-version>2.5.6</immutables-version>
         <jackson-version>2.9.2</jackson-version>
@@ -44,11 +45,14 @@
         <swagger-ui-version>3.6.1</swagger-ui-version>
         <!--test-->
         <arquillian-version>1.1.13.Final</arquillian-version>
+        <arquillian-drone-version>2.5.0</arquillian-drone-version>
+        <graphene-version>2.3.2</graphene-version>
         <shrinkwrap-resolver-version>2.2.6</shrinkwrap-resolver-version>
         <shrinkwrap-descriptors-version>2.0.0</shrinkwrap-descriptors-version>
         <shrinkwrap-version>1.2.6</shrinkwrap-version>
         <junit-version>4.12</junit-version>
         <hamcrest-version>1.3</hamcrest-version>
+        <selenium-version>3.8.1</selenium-version>
         <arquillian-wildfly-container-version>2.1.0.Final</arquillian-wildfly-container-version>
         <arquillian-glassfish-container-version>1.0.1</arquillian-glassfish-container-version>
         <arquillian-tomee-container-version>7.0.4</arquillian-tomee-container-version>
@@ -377,6 +381,31 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>${arquillian-drone-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${selenium-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.graphene</groupId>
+                <artifactId>graphene-webdriver</artifactId>
+                <version>${graphene-version}</version>
+                <type>pom</type>
+            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.jboss.arquillian.graphene</groupId>-->
+            <!--<artifactId>arquillian-browser-screenshooter</artifactId>-->
+            <!--<version>${graphene-version}</version>-->
+            <!--</dependency>-->
             <!--BOM end-->
             <!--Library start-->
             <dependency>
@@ -388,6 +417,12 @@
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
                 <version>${vavr-version}</version>
+            </dependency>
+            <!--Swagger and Drone incompatibility fix. Actually this depends no need-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.immutables</groupId>
@@ -544,6 +579,45 @@
             <scope>test</scope>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>${selenium-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-api</artifactId>
+            <version>${arquillian-drone-version}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+            <version>${arquillian-drone-version}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <version>${graphene-version}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver-api</artifactId>
+            <version>${graphene-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.jboss.arquillian.graphene</groupId>-->
+        <!--<artifactId>arquillian-browser-screenshooter</artifactId>-->
+        <!--<version>${graphene-version}</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
