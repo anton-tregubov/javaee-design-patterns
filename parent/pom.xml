@@ -31,8 +31,8 @@
         <maven-resources-plugin-version>3.0.2</maven-resources-plugin-version>
         <maven-site-plugin-version>3.6</maven-site-plugin-version>
         <maven-source-plugin-version>3.0.1</maven-source-plugin-version>
-        <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
-        <maven-failsafe-plugin-version>2.19.1</maven-failsafe-plugin-version>
+        <maven-surefire-plugin-version>2.20.1</maven-surefire-plugin-version>
+        <maven-failsafe-plugin-version>2.20.1</maven-failsafe-plugin-version>
         <maven-war-plugin-version>3.0.0</maven-war-plugin-version>
         <maven-jacoco-plugin-version>0.7.9</maven-jacoco-plugin-version>
         <!--library-->
@@ -229,8 +229,9 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-failsafe-plugin-version}</version>
                     <configuration>
-                        <reuseForks>true</reuseForks>
-                        <forkCount>1.5C</forkCount>
+                        <reuseForks>false</reuseForks>
+                        <!--Drone unsupported it <forkCount>1.5C</forkCount>-->
+                        <forkCount>1</forkCount>
                         <redirectTestOutputToFile>false</redirectTestOutputToFile>
                     </configuration>
                 </plugin>
@@ -401,11 +402,6 @@
                 <version>${graphene-version}</version>
                 <type>pom</type>
             </dependency>
-            <!--<dependency>-->
-            <!--<groupId>org.jboss.arquillian.graphene</groupId>-->
-            <!--<artifactId>arquillian-browser-screenshooter</artifactId>-->
-            <!--<version>${graphene-version}</version>-->
-            <!--</dependency>-->
             <!--BOM end-->
             <!--Library start-->
             <dependency>
@@ -612,12 +608,6 @@
             <version>${graphene-version}</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.jboss.arquillian.graphene</groupId>-->
-        <!--<artifactId>arquillian-browser-screenshooter</artifactId>-->
-        <!--<version>${graphene-version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
