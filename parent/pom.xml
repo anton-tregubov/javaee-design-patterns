@@ -1045,6 +1045,12 @@
                         <artifactId>glassfish</artifactId>
                         <version>${glassfish-version}</version>
                         <type>zip</type>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.glassfish.main.featuresets</groupId>
+                                <artifactId>glassfish</artifactId>
+                            </exclusion>
+                        </exclusions>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -1083,6 +1089,7 @@
                                             <outputDirectory>${project.build.directory}</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
+                                    <excludes>**/modules/guava.jar</excludes>
                                 </configuration>
                             </execution>
                         </executions>
@@ -1112,6 +1119,12 @@
                         <artifactId>glassfish</artifactId>
                         <version>${glassfish-version}</version>
                         <type>zip</type>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.glassfish.main.featuresets</groupId>
+                                <artifactId>glassfish</artifactId>
+                            </exclusion>
+                        </exclusions>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -1150,6 +1163,7 @@
                                             <outputDirectory>${project.build.directory}</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
+                                    <excludes>**/modules/guava.jar</excludes>
                                 </configuration>
                             </execution>
                         </executions>
