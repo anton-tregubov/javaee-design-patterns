@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
+package ru.faulab.javaee.design.patterns.sample.project.platform.impl.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

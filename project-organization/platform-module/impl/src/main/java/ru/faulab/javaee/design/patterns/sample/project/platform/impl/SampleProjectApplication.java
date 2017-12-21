@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.web;
+package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

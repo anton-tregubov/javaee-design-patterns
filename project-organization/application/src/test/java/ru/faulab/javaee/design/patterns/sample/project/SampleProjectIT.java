@@ -13,8 +13,8 @@ import ru.faulab.javaee.design.patterns.sample.project.note.Note;
 import ru.faulab.javaee.design.patterns.sample.project.note.impl.NoteFacadeImpl;
 import ru.faulab.javaee.design.patterns.sample.project.note.web.rest.vo.NoteData;
 import ru.faulab.javaee.design.patterns.sample.project.platform.expection.ErrorValueObject;
-import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonActivator;
-import ru.faulab.javaee.design.patterns.sample.project.platform.impl.JacksonConfiguration;
+import ru.faulab.javaee.design.patterns.sample.project.platform.impl.jackson.JacksonActivator;
+import ru.faulab.javaee.design.patterns.sample.project.platform.impl.jackson.JacksonConfiguration;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;

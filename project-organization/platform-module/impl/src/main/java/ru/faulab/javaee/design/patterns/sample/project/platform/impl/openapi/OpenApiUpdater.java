@@ -1,4 +1,4 @@
-package ru.faulab.javaee.design.patterns.sample.project.platform.impl;
+package ru.faulab.javaee.design.patterns.sample.project.platform.impl.openapi;
 
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.jaxrs2.Reader;
