@@ -25,7 +25,7 @@ env:
   - PROFILES=!it-skip,it-glassfish-4.1.2-embedded
   - PROFILES=!it-skip,it-tomee-7.0.4-managed
   - PROFILES=!it-skip,it-tomee-7.0.4-embedded
-  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar org.eluder.coveralls:coveralls-maven-plugin:report'
+  - PROFILES=!it-skip,it-glassfish-5.0-embedded,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
 
 #  https://issues.jboss.org/browse/ARQ-2155
 matrix:
@@ -43,4 +43,4 @@ install:
   - mvn clean install -B -V -P $PROFILES -DskipTests=true -Dmaven.javadoc.skip=true
 #execute
 script:
-  - mvn verify $GOALS -B -V -P $PROFILES -DrepoToken=$COVERALLS_REPO_TOKEN
+  - mvn verify $GOALS -B -V -P $PROFILES

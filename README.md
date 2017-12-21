@@ -1,6 +1,6 @@
 # JavaEE Design Patterns
 [![Build Status](https://travis-ci.org/anton-tregubov/javaee-design-patterns.svg?branch=master)](https://travis-ci.org/anton-tregubov/javaee-design-patterns)
-[![Coverage Status](https://coveralls.io/repos/github/anton-tregubov/javaee-design-patterns/badge.svg?branch=master)](https://coveralls.io/github/anton-tregubov/javaee-design-patterns?branch=master)
+[![Code Covarage](https://sonarcloud.io/api/badges/measure?key=ru.faulab.javaee-design-patterns:javaee-design-patterns&metric=coverage)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ru.faulab.javaee-design-patterns:javaee-design-patterns)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns) 
 [![Code Smells](https://sonarcloud.io/api/badges/measure?key=ru.faulab.javaee-design-patterns:javaee-design-patterns&metric=code_smells)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns)
 [![Technical debt](https://sonarcloud.io/api/badges/measure?key=ru.faulab.javaee-design-patterns:javaee-design-patterns&metric=sqale_index)](https://sonarcloud.io/dashboard/index/ru.faulab.javaee-design-patterns:javaee-design-patterns)
