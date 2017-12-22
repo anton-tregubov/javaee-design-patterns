@@ -27,18 +27,19 @@ env:
   - PROFILES=it-tomee-7.0.4-managed,browser-chromeheadless
   - PROFILES=it-tomee-7.0.4-embedded,browser-chromeheadless
   - PROFILES=it-tomee-7.0.4-embedded,browser-chrome
-  - PROFILES=it-tomee-7.0.4-embedded,browser-edge
+#  - PROFILES=it-tomee-7.0.4-embedded,browser-edge
   - PROFILES=it-tomee-7.0.4-embedded,browser-firefox
-  - PROFILES=it-tomee-7.0.4-embedded,browser-opera
+#  - PROFILES=it-tomee-7.0.4-embedded,browser-opera
   - PROFILES=it-tomee-7.0.4-embedded,browser-phantomejs
-  - PROFILES=it-tomee-7.0.4-embedded,browser-safari
+#  - PROFILES=it-tomee-7.0.4-embedded,browser-safari
   - PROFILES=it-glassfish-5.0-embedded,browser-chromeheadless,code-quality GOALS='org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
 
 #  https://issues.jboss.org/browse/ARQ-2155
 matrix:
   allow_failures:
-    - env: PROFILES=!it-skip,it-wildfly-11.0.0-embedded,browser-chromeheadless
-    - env: PROFILES=!it-skip,it-glassfish-4.1.2-managed,browser-chromeheadless
+    - env: PROFILES=it-wildfly-11.0.0-embedded,browser-chromeheadless
+    - env: PROFILES=it-glassfish-4.1.2-managed,browser-chromeheadless
+    - env: PROFILES=it-tomee-7.0.4-embedded,browser-phantomejs
 
 addons:
   sonarcloud:
