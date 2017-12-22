@@ -7,8 +7,7 @@ jdk:
 
 addons:
    chrome: stable
-   firefox: stable
-   opera: stable
+   firefox: latest
 
 cache:
   directories:
@@ -38,8 +37,8 @@ env:
 #  https://issues.jboss.org/browse/ARQ-2155
 matrix:
   allow_failures:
-    - env: PROFILES=!it-skip,it-wildfly-11.0.0-embedded
-    - env: PROFILES=!it-skip,it-glassfish-4.1.2-managed
+    - env: PROFILES=!it-skip,it-wildfly-11.0.0-embedded,browser-chromeheadless
+    - env: PROFILES=!it-skip,it-glassfish-4.1.2-managed,browser-chromeheadless
 
 addons:
   sonarcloud:
@@ -50,5 +49,9 @@ addons:
 install:
   - mvn clean install -B -V -P $PROFILES -DskipTests=true -Dmaven.javadoc.skip=true
 #execute
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 script:
   - mvn verify $GOALS -B -V -P $PROFILES
